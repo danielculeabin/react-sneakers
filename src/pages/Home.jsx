@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import Card from "../components/Card";
+
 function Home({
   items,
   searchValue,
@@ -7,7 +8,24 @@ function Home({
   onChangeSearchInput,
   onAddToFavorite,
   onAddToCart,
+  isLoading
 }) {
+
+  const renderItems = () =>{
+    const filteredItems = items.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()));
+
+    return (isLoading ? [...Array(12)] : filteredItems).map((item, index) => (
+      <Card
+        key={index}
+        onFavorite={(obj) => onAddToFavorite(obj)}
+        onPlus={(obj) => onAddToCart(obj)}
+        loading={isLoading}
+        {...item}
+      />
+    ))
+  }
+
+
   return (
     <>
       {/* Main content */}
@@ -38,18 +56,7 @@ function Home({
         
         {/* Items displayed as cards */}
         <div className="card-container d-flex flex-wrap">
-          {items
-            .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-            .map((item, index) => (
-              <Card
-                key={index}
-                title={item.title}
-                price={item.price}
-                imageUrl={item.imageUrl}
-                onFavorite={(obj) => onAddToFavorite(obj)}
-                onPlus={(obj) => onAddToCart(obj)}
-              />
-            ))}
+          {renderItems()}
         </div>
       </div>
     </>
@@ -57,3 +64,6 @@ function Home({
 }
 
 export default Home;
+
+//1) В React если вы используете булево значение, вам необязательно делать [added={true}], вам достаточно передать просто свойство [added]
+//2) Если в JSX Вы передаёте свойство - оно автоматически становится 'true'.
