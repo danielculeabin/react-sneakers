@@ -16,9 +16,9 @@ const root = document.getElementById("root");
 
 //? This initializes a React root for the root DOM element and starts rendering the React application.
 ReactDOM.createRoot(root).render(
-  <>
+  <StrictMode>
     <Router>
       <App />
     </Router>
-  </>
+  </StrictMode>
 );

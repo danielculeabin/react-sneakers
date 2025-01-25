@@ -40,6 +40,8 @@ function App() {
         .get("https://678e1e80a64c82aeb11f1402.mockapi.io/favorites");
       const itemsResponse = await axios
         .get("https://678e1e80a64c82aeb11f1402.mockapi.io/items");
+      const ordersResponse = await axios  
+        .get("https://678e1e80a64c82aeb11f1402.mockapi.io/orders") 
 
       setIsLoading(false);
 
